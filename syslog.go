@@ -42,7 +42,7 @@ func sharedSyslog(fmtr Format, sysWr *syslog.Writer, err error) (Handler, error)
 			syslogFn = func(m string) error { return nil } // There's no syslog level for trace
 		}
 
-		s := strings.TrimSpace(string(Format(r)))
+		s := strings.TrimSpace(string(fmtr.Format(r)))
 		return syslogFn(s)
 	})
 	return LazyHandler(&closingHandler{sysWr, h}), nil
